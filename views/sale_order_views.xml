@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="action_create_route_wizard"
+            model="ir.actions.act_window">
+
+        <field name="name">Create Route</field>
+
+        <field name="res_model">route.planner.create.wizard</field>
+
+        <field name="view_mode">form</field>
+
+        <field name="target">new</field>
+
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+
+        <field name="binding_type">action</field>
+
+    </record>
+
+</odoo>

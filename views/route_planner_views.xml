@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================= -->
+    <!-- Vista Lista -->
+    <!-- ========================= -->
+
+    <record id="view_route_planner_tree" model="ir.ui.view">
+        <field name="name">route.planner.tree</field>
+        <field name="model">route.planner</field>
+        <field name="arch" type="xml">
+            <list string="Routes">
+                <field name="name"/>
+                <field name="route_date"/>
+                <field name="warehouse_id"/>
+                <field name="user_id"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+
+    <!-- ========================= -->
+    <!-- Vista Formulario -->
+    <!-- ========================= -->
+
+    <record id="view_route_planner_form" model="ir.ui.view">
+        <field name="name">route.planner.form</field>
+        <field name="model">route.planner</field>
+        <field name="arch" type="xml">
+            <form string="Route">
+
+
+                <header>
+
+                    <button
+                        name="action_calculate_route"
+                        string="Calcular Ruta"
+                        type="object"
+                        class="btn-primary"
+                    />
+
+                     <button
+                        name="action_generate_link"
+                        string="Generar Link de WhatsApp para compartir la ruta"
+                        type="object"
+                        class="btn-primary"
+                    />
+
+                </header>
+
+                <sheet>
+
+                    <group>
+
+                        <group>
+
+                            <field name="name"/>
+
+                            <field name="state"/>
+
+                            <field name="route_date"/>
+
+                        </group>
+
+                        <group>
+
+
+                            <field name="user_id"/>
+
+                            <field name="vehicle_id"/>
+                            <field name="fuel_expense"/>
+
+                            <field name="company_id"/>
+
+                        </group>
+
+
+                        <group string="Origen: Empresa">
+                            <field name="company_name"/>
+                            <field name="origin_latitude" string="Latitud"/>
+                            <field name="origin_longitude" string="Longitud"/>
+                            <field name="route_polyline" string="Route Polyline Google" invisible="1"/>
+                            <field name="route_distance_km" string="Route Distance (km)"/>
+                            <field name="route_duration_hours" string="Route Duration (hours)"/>
+                            <field name="route_flexibility" string="Flexibilidad de la ruta (horas)"/>
+                            <field name="whatsapp_link" string="Link de la ruta WhatsApp"  widget="CopyClipboardCharField"/>
+                        </group>
+
+                    </group>
+
+                    <notebook>
+
+                        <page string="Orders">
+
+                            <field name="line_ids">
+
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="sale_order_id"/>
+                                    <field name="partner_id" readonly="1"/>
+                                    <field name="state" readonly="1"/>
+                                    <field name="latitude" />
+                                    <field name="longitude" />
+                                    <field name="display_order_name" />
+                                </list>
+
+                            </field>
+
+                        </page>
+
+                        <page string="Notes">
+
+                            <field name="notes"/>
+
+                        </page>
+
+                        <page string="Mapa de Pedidos">
+
+                            <field name="map_view"
+                                widget="route_map"/>
+
+                        </page>
+
+                        <!-- Vista mapa para mostrar la ruta google calculada -->
+
+                        <page string="Mapa de Ruta">
+
+                            <field name="map_view"
+                                widget="google_route_map"/>
+
+                        </page>
+
+
+                    </notebook>
+
+                </sheet>
+|              <chatter/>
+            </form>
+        </field>
+    </record>
+
+
+  
+
+    <!-- ========================= -->
+    <!-- Acción -->
+    <!-- ========================= -->
+
+    <record id="action_route_planner" model="ir.actions.act_window">
+        <field name="name">Routes</field>
+        <field name="res_model">route.planner</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+</odoo>

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- LIST VIEW -->
+    <!-- ========================================================= -->
+
+    <record id="view_route_planner_report_list" model="ir.ui.view">
+        <field name="name">route.planner.report.list</field>
+        <field name="model">route.planner.report</field>
+        <field name="arch" type="xml">
+
+            <list
+                string="Reporte Financiero de Rutas"
+                create="0"
+                edit="0"
+                delete="0"
+            >
+
+                <field name="route_id"/>
+
+                <field name="route_date"/>
+
+                <field name="order_count"/>
+
+                <field
+                    name="shipment_total"
+                    widget="monetary"
+                    options="{'currency_field': 'currency_id'}"
+                />
+
+                <field
+                    name="fuel_expense"
+                    widget="monetary"
+                    options="{'currency_field': 'currency_id'}"
+                />
+
+                <field
+                    name="fuel_percentage"
+                    widget="badge"
+                    decoration-success="fuel_percentage &lt;= 5"
+                    decoration-warning="fuel_percentage &gt; 5 and fuel_percentage &lt;= 10"
+                    decoration-danger="fuel_percentage &gt; 10"
+                />
+
+                <field name="user_id"/>
+
+                <field name="vehicle_id"/>
+
+                <field name="notes"/>
+
+            </list>
+
+        </field>
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- KANBAN VIEW -->
+    <!-- ========================================================= -->
+
+    <record id="view_route_planner_report_kanban" model="ir.ui.view">
+        <field name="name">route.planner.report.kanban</field>
+        <field name="model">route.planner.report</field>
+        <field name="arch" type="xml">
+
+            <kanban
+                string="Reporte Financiero de Rutas"
+                create="0"
+                edit="0"
+                delete="0"
+            >
+
+                <field name="route_id"/>
+                <field name="route_date"/>
+                <field name="order_count"/>
+                <field name="shipment_total"/>
+                <field name="fuel_expense"/>
+                <field name="fuel_percentage"/>
+                <field name="user_id"/>
+                <field name="vehicle_id"/>
+                <field name="currency_id"/>
+                <field name="notes"/>
+
+                <templates>
+
+                    <t t-name="card">
+
+                        <div class="oe_kanban_global_click">
+
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+
+                                <strong class="fs-5">
+                                    <field name="route_id"/>
+                                </strong>
+
+                                <span
+                                    class="badge"
+                                    t-att-class="
+                                        record.fuel_percentage.raw_value &lt;= 5
+                                        ? 'text-bg-success'
+                                        : record.fuel_percentage.raw_value &lt;= 10
+                                        ? 'text-bg-warning'
+                                        : 'text-bg-danger'
+                                    "
+                                >
+                                    <field name="fuel_percentage"/>
+                                    %
+                                </span>
+
+                            </div>
+
+                            <div class="text-muted mb-3">
+                                <field name="route_date"/>
+                            </div>
+
+
+                            <!-- PEDIDOS -->
+
+                            <div class="row mb-2">
+
+                                <div class="col-6">
+                                    <small class="text-muted">
+                                        Pedidos
+                                    </small>
+
+                                    <div class="fw-bold">
+                                        <field name="order_count"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <small class="text-muted">
+                                        Total del embarque
+                                    </small>
+
+                                    <div class="fw-bold">
+                                        <field
+                                            name="shipment_total"
+                                            widget="monetary"
+                                            options="{'currency_field': 'currency_id'}"
+                                        />
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <!-- COMBUSTIBLE -->
+
+                            <div class="row mb-2">
+
+                                <div class="col-6">
+                                    <small class="text-muted">
+                                        Combustible
+                                    </small>
+
+                                    <div class="fw-bold">
+                                        <field
+                                            name="fuel_expense"
+                                            widget="monetary"
+                                            options="{'currency_field': 'currency_id'}"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <small class="text-muted">
+                                        Impacto combustible
+                                    </small>
+
+                                    <div class="fw-bold">
+                                        <field name="fuel_percentage"/>
+                                        %
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <!-- CONDUCTOR / VEHÍCULO -->
+
+                            <div class="border-top pt-2 mt-2">
+
+                                <div>
+                                    <small class="text-muted">
+                                        Entregado por
+                                    </small>
+
+                                    <div>
+                                        <field name="user_id"/>
+                                    </div>
+                                </div>
+
+                                <div class="mt-1">
+                                    <small class="text-muted">
+                                        Vehículo
+                                    </small>
+
+                                    <div>
+                                        <field name="vehicle_id"/>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <!-- NOTA -->
+
+                            <t t-if="record.notes.raw_value">
+
+                                <div class="border-top pt-2 mt-2">
+
+                                    <small class="text-muted">
+                                        Nota
+                                    </small>
+
+                                    <div>
+                                        <field name="notes"/>
+                                    </div>
+
+                                </div>
+
+                            </t>
+
+                        </div>
+
+                    </t>
+
+                </templates>
+
+            </kanban>
+
+        </field>
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- ACTION -->
+    <!-- ========================================================= -->
+
+    <record id="action_route_planner_report" model="ir.actions.act_window">
+
+        <field name="name">Reporte Financiero de Rutas</field>
+
+        <field name="res_model">route.planner.report</field>
+
+        <field name="view_mode">list,kanban</field>
+
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay rutas finalizadas para mostrar.
+            </p>
+        </field>
+
+    </record>
+
+</odoo>

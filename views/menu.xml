@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+    <menuitem
+        id="menu_route_planner_root"
+        name="Route Planner"
+        sequence="90"
+        web_icon="route_planner,static/description/icon.png"/>
+
+
+    <menuitem
+        id="menu_route_planner"
+        name="Rutas"
+        parent="menu_route_planner_root"
+        action="action_route_planner"
+        sequence="10"/>
+
+
+    <menuitem
+        id="menu_route_vehicle"
+        name="Vehiculos"
+        parent="menu_route_planner_root"
+        action="action_route_vehicle"
+        sequence="20"/>
+
+    <menuitem
+        id="menu_route_planner_report"
+        name="Impacto Financiero"
+        parent="menu_route_planner_root"
+        action="action_route_planner_report"
+        sequence="30"/>
+
+
+</odoo>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+
+    <t t-name="route_planner.GoogleRouteMapWidget">
+        <div class="google_maps_container" t-ref="map"></div>
+    </t>
+
+</templates>

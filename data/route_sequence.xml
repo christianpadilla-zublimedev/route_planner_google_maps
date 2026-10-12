@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="seq_route_planner" model="ir.sequence">
+
+        <field name="name">Route Planner</field>
+
+        <field name="code">route.planner</field>
+
+        <field name="prefix">RUTA-</field>
+
+        <field name="padding">5</field>
+
+    </record>
+
+</odoo>

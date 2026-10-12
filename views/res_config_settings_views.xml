@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_route_planner" model="ir.ui.view">
+    <field name="name">res.config.settings.view.form.route.planner</field>
+    <field name="model">res.config.settings</field>
+    <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+    <field name="arch" type="xml">
+
+        <xpath expr="//form" position="inside">
+
+            <app
+                string="Route Planner"
+                name="route_planner"
+                groups="base.group_system"
+            >
+                <block title="Google Maps">
+
+                    <setting
+                        string="Google Maps JavaScript API Key"
+                        help="API key used to connect Route Planner with Google Maps JavaScript."
+                    >
+                        <field name="google_maps_api_key" password="True"/>
+                    </setting>
+
+                    <setting
+                        string="Google Maps Routes API Key"
+                        help="API key used to calculate routes."
+                    >
+                        <field name="google_maps_routes_api_key" password="True"/>
+                    </setting>
+
+                    <setting
+                        string="Google Maps Geocoding API Key"
+                        help="API key used for geocoding."
+                    >
+                        <field name="google_maps_geocoding_api_key" password="True"/>
+                    </setting>
+
+                </block>
+            </app>
+
+        </xpath>
+
+    </field>
+</record>
+
+</odoo>
